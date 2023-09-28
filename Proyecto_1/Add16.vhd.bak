@@ -1,0 +1,36 @@
+architecture behav of Add16 is
+  -- Componente: sumador completo de un bit
+  component FullAdder
+    port (
+      a, b, cin: in std_logic;
+      sum, cout: out std_logic
+    );
+  end component;
+
+  -- Señales: bits de acarreo intermedios
+  signal c0, c1, c2, c3, c4, c5, c6, c7,
+         c8, c9, c10, c11, c12, c13, c14: std_logic;
+begin
+  -- Se asigna el acarreo inicial a '0'
+  c0 <= '0';
+
+  -- Se instancian los sumadores completos para cada bit
+  fa0: FullAdder port map (a(0), b(0), c0, sum(0), c1);
+  fa1: FullAdder port map (a(1), b(1), c1, sum(1), c2);
+  fa2: FullAdder port map (a(2), b(2), c2, sum(2), c3);
+  fa3: FullAdder port map (a(3), b(3), c3, sum(3), c4);
+  fa4: FullAdder port map (a(4), b(4), c4, sum(4), c5);
+  fa5: FullAdder port map (a(5), b(5), c5, sum(5), c6);
+  fa6: FullAdder port map (a(6), b(6), c6, sum(6), c7);
+  fa7: FullAdder port map (a(7), b(7), c7, sum(7), c8);
+  fa8: FullAdder port map (a(8), b(8), c8, sum(8), c9);
+  fa9: FullAdder port map (a(9), b(9), c9, sum(9), c10);
+  fa10: FullAdder port map (a(10), b(10), c10, sum(10), c11);
+  fa11: FullAdder port map (a(11), b(11), c11, sum(11), c12);
+  fa12: FullAdder port map (a(12), b(12), c12, sum(12), c13);
+  fa13: FullAdder port map (a(13), b(13), c13, sum(13), c14);
+  fa14: FullAdder port map (a(14), b(14), c14, sum(14), cout);
+
+  -- Se asigna el último bit de la suma al bit más significativo de la entrada
+  sum(15) <= a(15) xor b(15) xor cout;
+end behav;
